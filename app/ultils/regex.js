@@ -1,0 +1,1 @@
+exports.regexAccount = /^(?=.*[A-Z])(?=.*\d).+$/;
