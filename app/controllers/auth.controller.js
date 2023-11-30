@@ -7,13 +7,14 @@ const authService = require("../services/auth.service");
 const constantNotify = require("../config/constantNotify.js");
 
 const tableName = "tbl_user";
-
+//register
 exports.register = async (req, res) => {
   try {
     const error = validationResult(req);
 
     if (!error.isEmpty()) {
-      return res.send({ result: false, error: errors.array() });
+      console.log(error);
+      return res.send({ result: false, error: error.array() });
     }
     const { fullName, account, password } = req.body;
 
@@ -111,7 +112,7 @@ exports.register = async (req, res) => {
     console.log(error);
   }
 };
-
+//login
 exports.login = async (req, res) => {
   try {
     const error = validationResult(req);
