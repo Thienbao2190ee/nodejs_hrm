@@ -5,6 +5,10 @@ const jwt = require("../helper/auth.helper");
 const regex = require("../ultils/regex.js");
 const authService = require("../services/auth.service");
 const constantNotify = require("../config/constantNotify.js");
+const { generateRandomNumberWithLength } = require("../ultils/randomNumber.js");
+const sendEmail = require("../ultils/sendEmail.js");
+const e = require("method-override");
+const authRoute = require("../routes/auth.route.js");
 
 const tableName = "tbl_user";
 //register
@@ -16,12 +20,12 @@ exports.register = async (req, res) => {
       console.log(error);
       return res.send({ result: false, error: error.array() });
     }
-    const { fullName, account, password } = req.body;
-
     const errors = [];
 
-    if (!regex.regexAccount.test(account)) {
-      errors.push({ param: "account", msg: constantNotify.VALIDATE_ACCOUNT });
+    const { fullName, email, password } = req.body;
+
+    if (!regex.regexEmail.test(email)) {
+      errors.push({ param: "email", msg: constantNotify.VALIDATE_EMAIL });
     }
 
     if (!regex.regexAccount.test(password) || password.length < 9) {
@@ -34,6 +38,7 @@ exports.register = async (req, res) => {
         error: errors,
       });
     }
+
     //check account
     db.getConnection((err, conn) => {
       if (err) {
@@ -41,8 +46,8 @@ exports.register = async (req, res) => {
         return;
       }
       conn.query(
-        `SELECT account FROM ${tableName} WHERE account = ?`,
-        account,
+        `SELECT email FROM ${tableName} WHERE email = ?`,
+        email,
         async (err, dataRes) => {
           if (err) {
             return res.send({
@@ -56,8 +61,8 @@ exports.register = async (req, res) => {
               result: false,
               error: [
                 {
-                  param: "account",
-                  msg: `Tài khoản ${constantNotify.ALREADY_EXITS}`,
+                  param: "email",
+                  msg: `Email ${constantNotify.ALREADY_EXITS}`,
                 },
               ],
             });
@@ -67,43 +72,67 @@ exports.register = async (req, res) => {
           const hashPass = await bcrypt.hash(password, salt);
           const accessToken = await jwt.make({ fullName: fullName });
           const refreshToken = await jwt.refreshToken({ fullName: fullName });
-          const data = {
-            account: account,
-            fullName: fullName,
-            password: hashPass,
-            refreshToken,
-            accessToken,
-            createdAt: Date.now(),
-            updatedAt: null,
+          const generateOTP = generateRandomNumberWithLength(6);
+          const dataSendEmail = {
+            to: email,
+            text: "Hey user",
+            subject: "Xác thực tài khoản",
+            html: `Đây là mail xác thực tài khoản của bạn vui lòng nhập mã OTP bên dưới ở trang đăng kí để xác minh tài khoản <br/>
+                  Mã OTP là ${generateOTP}  
+                  `,
           };
+          await sendEmail(dataSendEmail)
+            .then((resDataSendEmail) => {
+              const data = {
+                email: email,
+                fullName: fullName,
+                password: hashPass,
+                refreshToken,
+                accessToken,
+                createdAt: Date.now(),
+                updatedAt: null,
+                generateOTP: generateOTP,
+              };
 
-          // console.log(data);
-
-          authService.register(data, (err, res_) => {
-            if (err) {
-              res.send({ result: false, error: [err] });
-            } else {
-              conn.query(
-                `SELECT id,refreshToken,accessToken FROM ${tableName} WHERE id = ?`,
-                res_,
-                (err, dataRes) => {
-                  if (err) {
-                    return res.send({
-                      result: false,
-                      error: [{ msg: constantNotify.ERROR }],
-                    });
-                  }
+              authService.register(data, (err, res_) => {
+                if (err) {
+                  res.send({ result: false, error: [err] });
+                } else {
                   res.send({
                     result: true,
-                    data: {
-                      msg: constantNotify.REGISTER_SUCCESS,
-                      newData: dataRes,
-                    },
+                    msg: constantNotify.REGISTER_SUCCESS,
                   });
+                  // conn.query(
+                  //   `SELECT id,refreshToken,accessToken FROM ${tableName} WHERE id = ?`,
+                  //   res_,
+                  //   (err, dataRes) => {
+                  //     if (err) {
+                  //       return res.send({
+                  //         result: false,
+                  //         error: [{ msg: constantNotify.ERROR }],
+                  //       });
+                  //     }
+                      
+                  //   }
+                  // );
                 }
-              );
-            }
-          });
+              });
+              // return res.send({
+              //   result: true,
+              //   data: {
+              //     msg: constantNotify.SEND_SUCCESS,
+              //     newData: {
+              //       code: generateOTP,
+              //     },
+              //   },
+              // });
+            })
+            .catch((err) => {
+              return res.send({
+                result: false,
+                error: [{ msg: constantNotify.ERROR }],
+              });
+            });
         }
       );
       conn.release();
@@ -115,17 +144,18 @@ exports.register = async (req, res) => {
 //login
 exports.login = async (req, res) => {
   try {
+    console.log(123);
     const error = validationResult(req);
 
     if (!error.isEmpty()) {
-      return res.send({ result: false, error: errors.array() });
+      return res.send({ result: false, error: error.array() });
     }
-    const { account, password } = req.body;
+    const { email, password } = req.body;
 
     const errors = [];
 
-    if (!regex.regexAccount.test(account)) {
-      errors.push({ param: "account", msg: constantNotify.VALIDATE_ACCOUNT });
+    if (!regex.regexEmail.test(email)) {
+      errors.push({ param: "email", msg: constantNotify.VALIDATE_EMAIL });
     }
 
     if (!regex.regexAccount.test(password) || password.length < 9) {
@@ -138,23 +168,49 @@ exports.login = async (req, res) => {
         error: errors,
       });
     }
-
-    authService.login(account,password,(err, res_) => {
+    
+    authService.login(email, password, (err, res_) => {
       if (err) {
-          return res.send({
-              result: false,
-              error: [err],
-          });
+        return res.send({
+          result: false,
+          error: [err],
+        });
       }
-
       res.send({
-          result: true,
-          msg:constantNotify.LOGIN_SUCCESS,
-          data: res_,
+        result: true,
+        msg: constantNotify.LOGIN_SUCCESS,
+        data: res_,
       });
-  })
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+// sendEmail
+exports.sendEmail = async (req, res) => {
+  try {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      return res.send({ result: false, error: error.array() });
+    }
+    const { code, email } = req.body;
 
+    authService.checkCodeGmail(email,code,(err, res_) => {
+      if(err){
+        return res.send({
+          result: false,
+          error: [err],
+        });
+      }
+      res.send({
+        result: true,
+        msg: constantNotify.CODE_SUCCESS,
+        newData: res_,
+      });
 
+    })
+
+   
   } catch (error) {
     console.log(error);
   }

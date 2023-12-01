@@ -8,6 +8,12 @@ const constantNotify = {
     REGISTER_SUCCESS: 'Đăng ký thành công',
     LOGIN_SUCCESS: 'Đăng nhập thành công',
     ACCOUNT_FAILED: 'Tài khoản không chính xác',
+    EMAIL_FAILED: 'Email không chính xác',
     PASS_FAILED: 'Mật khẩu không chính xác',
+    CODE_FAILED: 'Mã không chính xác',
+    VALIDATE_EMAIL:'Email không đúng định dạng',
+    SEND_SUCCESS:'Gữi email thành công',
+    CODE_SUCCESS:'Xác minh thành công'
+
 }
 module.exports = constantNotify;

@@ -7,17 +7,24 @@ module.exports = app => {
     router.post('/register',[
         body('fullName','Họ và tên không được bỏ trống')
         .notEmpty(),
-        body('account','Tên đăng nhập không được bỏ trống')
+        body('email','Email không được bỏ trống')
         .notEmpty(),
         body('password','Mật khẩu không được bỏ trống')
         .notEmpty(),
     ], authController.register)
     router.post('/login',[
-        body('account','Tên đăng nhập không được bỏ trống')
+        body('email','Email không được bỏ trống')
         .notEmpty(),
         body('password','Mật khẩu không được bỏ trống')
         .notEmpty(),
     ], authController.login)
+
+    router.post('/check-code',[
+        body('email','Email không được bỏ trống')
+        .notEmpty(),
+        body('code','Mã không được bỏ trống')
+        .notEmpty(),
+    ], authController.sendEmail)
 
     app.use('/api/auth', router);
 }

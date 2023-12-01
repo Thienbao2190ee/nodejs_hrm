@@ -3,8 +3,8 @@ POST http://localhost:8000/api/auth/login
 Content-Type: application/json
 
 {
-     "account": "User 3",
-     "password": "Optech123"
+     "email": "thienbao2190e@gmail.com",
+     "password": "A123456789"
 }
 
 ###
@@ -12,8 +12,17 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-     "account": "ser 3",
+     "email": "thienbao2190e@gmail.com",
      "fullName": "full name 4",
-     "password": "ptech123"
+     "password": "Optech123"
+}
+
+###
+POST http://localhost:8000/api/auth/send-gmail
+Content-Type: application/json
+
+{
+     "email": "thienbao2190e@gmail.com",
+     "code": "207763"
 }
 

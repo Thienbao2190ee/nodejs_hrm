@@ -20,23 +20,24 @@ exports.register = async (data, result) => {
     }
 };
 //login
-exports.login = async (account,password,result ) => {
+exports.login = async (email,password,result ) => {
     try {
         db.getConnection((err,conn) => {
             if (err) {
                 return result({ msg: constantNotify.ERROR }, null);
             }
 
-            conn.query(`SELECT id,password FROM ${tableName} WHERE account = ?`,account,async(err,dataRes) => {
+            conn.query(`SELECT id,password FROM ${tableName} WHERE email = ?`,email,async(err,dataRes) => {
                 try {
                     if (err) {
+                        console.log(err);
                         return result({ msg: constantNotify.ERROR }, null);
                     }
                     if (dataRes.length === 0) {
                         return result(
                             {
-                                param: 'account',
-                                msg: constantNotify.ACCOUNT_FAILED,
+                                param: 'email',
+                                msg: constantNotify.EMAIL_FAILED,
                             },
                             null,
                         );
@@ -64,6 +65,35 @@ exports.login = async (account,password,result ) => {
                                 refreshToken: _refreshToken,
                             });
                         });
+                } catch (error) {
+                    console.log(error);
+                }
+            })
+        })
+    } catch (error) {
+        console.log(error);
+    }
+} 
+
+exports.checkCodeGmail = async (email,code,result ) => {
+    try {
+        db.getConnection((err,conn) => {
+            if (err) {
+                return result({ msg: constantNotify.ERROR }, null);
+            }
+
+            conn.query(`SELECT generateOTP,email,fullName,accessToken,refreshToken,createdAt,id FROM ${tableName} WHERE email = ?`,email,async(err,dataRes) => {
+                try {
+                    if (err) {
+                        return result({ msg: constantNotify.ERROR }, null);
+                    }
+                    
+                    if (dataRes[0]?.generateOTP != code) {
+                        return result({msg: constantNotify.CODE_FAILED }, null);
+                    }
+
+                    return result(null, dataRes);
+                    
                 } catch (error) {
                     console.log(error);
                 }

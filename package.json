@@ -28,6 +28,7 @@
     "method-override": "^3.0.0",
     "moment": "^2.29.4",
     "mysql2": "^3.6.5",
+    "nodemailer": "^6.9.7",
     "nodemon": "^3.0.1",
     "rbush": "^3.0.1"
   }
