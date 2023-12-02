@@ -1,0 +1,11 @@
+POST http://localhost:8000/api/hrm/register
+Content-Type: application/json
+
+{
+     "name": "lại Nguyễn Thiên Bảo",
+     "email": "thienbao2190e@gmail.com",
+     "phone": "0908011419",
+     "gender": 0,
+     "birth": 1095783324,
+     "hometown": "51/9, Khu phố an thuận 1, Phường 7, TP Tân An, Long An"
+}

@@ -7,7 +7,7 @@ const methodOverride = require('method-override');
 
 require('dotenv').config();
 
-// const jwtMiddleware = require('./app/middlewares/jwt.middleware');
+const jwtMiddleware = require('./app/middlewares/jwt.middleware');
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*"); //Cấp quyền cho client được truy cập để sử dụng tài nguyên, "*" là tất cả client.
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS, PATCH'); // Các phương thức của client khi gọi api
@@ -31,6 +31,8 @@ app.use(methodOverride(function(req, res) {
 
 // routes list
 require('./app/routes/auth.route')(app);
+app.use(jwtMiddleware.isAuth); // check login
+require('./app/routes/hrm.route')(app);
 
 app.listen(process.env.PORT, function(){
     console.log('Server running: ' + process.env.BASE_URL + ':' + process.env.PORT);

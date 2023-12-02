@@ -12,6 +12,7 @@ const constantNotify = {
     PASS_FAILED: 'Mật khẩu không chính xác',
     CODE_FAILED: 'Mã không chính xác',
     VALIDATE_EMAIL:'Email không đúng định dạng',
+    VALIDATE_PHONE:'Số điện thoại không đúng định dạng',
     SEND_SUCCESS:'Gữi email thành công',
     CODE_SUCCESS:'Xác minh thành công'
 
