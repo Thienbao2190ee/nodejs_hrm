@@ -119,6 +119,7 @@ exports.register = async (req, res) => {
                       }
                       return res.send({
                         result: true,
+                        msg:constantNotify.ADD_DATA_SUCCESS,
                         newData: dataRes,
                       });
                     }
@@ -138,7 +139,78 @@ exports.register = async (req, res) => {
   }
 };
 
-//register
+//get all
+exports.getAll = async (req, res) => {
+  try {
+    let total = await hrmService.getTotal(); // total data row
+    const dataSearch = req.query;
+    let offset = 0;
+    let limit = 10;
+
+    if (dataSearch.offset) {
+      offset = dataSearch.offset;
+    }
+
+    if (dataSearch.limit) {
+      limit = dataSearch.limit;
+    }
+
+    hrmService.getAll(dataSearch, offset, limit, (err, res_) => {
+      if (err) {
+        return res.send({
+          result: false,
+          error: [err],
+        });
+      }
+
+      // Calculate TotalPage
+      const totalPage = Math.ceil(total / limit);
+
+      return res.send({
+        result: true,
+        totalPage: totalPage ? totalPage : 0,
+        data: res_,
+      });
+    });
+  } catch (error) {
+    console.log(error);
+    return res.send({
+      result: false,
+      error: [{ msg: constantNotify.SERVER_ERROR }],
+    });
+  }
+};
+
+//get all
+exports.getById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    hrmService.getbyid(id, (err, res_) => {
+      if (err) {
+        return res.send({
+          result: false,
+          error: [err],
+        });
+      }
+
+      // Calculate TotalPage
+
+      return res.send({
+        result: true,
+        data: res_,
+      });
+    });
+  } catch (error) {
+    console.log(error);
+    return res.send({
+      result: false,
+      error: [{ msg: constantNotify.SERVER_ERROR }],
+    });
+  }
+};
+
+//update
 exports.update = async (req, res) => {
   try {
     const error = validationResult(req);
@@ -267,27 +339,27 @@ exports.update = async (req, res) => {
     console.log(error);
   }
 };
-
+//delete
 exports.delete = async (req, res) => {
   try {
-      const id = req.params.id;
-      hrmService.delete(id, (err, res_) => {
-          if (err) {
-              return res.send({
-                  result: false,
-                  error: [err],
-              });
-          }
-
-          res.send({
-              result: true,
-              data: { msg: constantNotify.DELETE_DATA_SUCCESS },
-          });
-      });
-  } catch (error) {
-      res.send({
+    const id = req.params.id;
+    hrmService.delete(id, (err, res_) => {
+      if (err) {
+        return res.send({
           result: false,
-          error: [{ msg: constantNotify.SERVER_ERROR }],
+          error: [err],
+        });
+      }
+
+      res.send({
+        result: true,
+        msg: constantNotify.DELETE_DATA_SUCCESS 
       });
+    });
+  } catch (error) {
+    res.send({
+      result: false,
+      error: [{ msg: constantNotify.SERVER_ERROR }],
+    });
   }
 };

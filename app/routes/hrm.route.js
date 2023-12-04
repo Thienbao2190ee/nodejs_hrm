@@ -3,6 +3,10 @@ const router = require('express').Router();
 const {body} = require('express-validator');
 
 module.exports = app => {
+    //getall
+    router.get("/getall", hrmController.getAll);
+    //getbyid
+    router.get("/getbyid/:id", hrmController.getById);
     //register
     router.post('/register',[
         body('name','Họ và tên không được bỏ trống')
@@ -18,7 +22,7 @@ module.exports = app => {
         body('hometown','Nguyên quán không được bỏ trống')
         .notEmpty(),
     ], hrmController.register)
-    //register
+    //updatebyid
     router.put('/updatebyid/:id',[
         body('name','Họ và tên không được bỏ trống')
         .notEmpty(),
@@ -33,6 +37,7 @@ module.exports = app => {
         body('hometown','Nguyên quán không được bỏ trống')
         .notEmpty(),
     ], hrmController.update)
+    //delete
     router.delete('/delete/:id',hrmController.delete)
     
 

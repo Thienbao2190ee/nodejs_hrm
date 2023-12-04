@@ -18,6 +18,65 @@ exports.register = async (data, result) => {
         result({ msg: constantNotify.SERVER_ERROR }, null);
     }
 };
+exports.getAll = async (keySearch, offset, limit, result) => {
+    try {
+        let query = `SELECT * FROM ${tableName} `;
+        
+        if (keySearch.gender) {
+            query += `WHERE gender = ${keySearch.gender} `;
+        }
+
+        if (keySearch.keyword && keySearch.keyword !== '') {
+            const keyword = `%${keySearch.keyword}%`;
+            // Thêm điều kiện tìm kiếm cho name, email, phone
+            if (query.includes('WHERE')) {
+                query += ` AND (name LIKE "${keyword}" OR email LIKE "${keyword}" OR phone LIKE "${keyword}")`;
+            } else {
+                query += ` WHERE (name LIKE "${keyword}" OR email LIKE "${keyword}" OR phone LIKE "${keyword}")`;
+            }
+        }
+    
+        query += ` ORDER BY id DESC LIMIT ${offset},${limit}`;
+    
+        db.query(query, (err, dataRes) => {
+            if (err) {
+                return result({ msg: constantNotify.ERROR }, null);
+            }
+            result(null, dataRes);
+        });
+    } catch (error) {
+        result({ msg: constantNotify.SERVER_ERROR }, null);
+    }
+}
+//get Total
+exports.getTotal = () => {
+    return new Promise((resolve, reject) => {
+        const query = `SELECT COUNT(*) as total FROM ${tableName}`;
+        db.query(query, (err, dataRes) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(dataRes[0]?.total);
+        });
+    });
+};
+
+//getbyid
+
+exports.getbyid = (id, result) => {
+    try {
+        const query = `SELECT * FROM ${tableName} WHERE id = ?`;
+        db.query(query,[id] ,(err,dataRes) => {
+            if(err) {
+                console.log(err);
+                return result({ msg: constantNotify.ERROR }, null);
+            }
+            result(null, dataRes);
+        })
+    } catch (error) {
+        result({ msg: constantNotify.SERVER_ERROR }, null);
+    }
+};
 
 //register
 exports.updateById = async (id, data, result) => {

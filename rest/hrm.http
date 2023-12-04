@@ -5,12 +5,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ikzhu
 
 {
      "name": "lại Nguyễn Hoàng Long",
-     "email": "thienbao5@gmail.com",
-     "phone": "0908011429",
+     "email": "thienbao9@gmail.com",
+     "phone": "0908111229",
      "gender": 0,
      "birth": 1095783324,
      "hometown": "51/9, Khu phố an thuận 1, Phường 7, TP Tân An, Long An"
 }
+###
+
+GET http://localhost:8000/api/hrm/getbyid/7
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
+
 
 ###
 PUT http://localhost:8000/api/hrm/updatebyid/9
@@ -19,7 +26,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ikzhu
 
 {
      "name": "lại Nguyễn Thiên Bảo",
-     "email": "thienbao5@gmail.com",
+     "email": "thienbao2@gmail.com",
      "phone": "0908011429",
      "gender": 0,
      "birth": 1095783324,
@@ -28,8 +35,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ikzhu
 
 ###
 
-DELETE  http://localhost:8000/api/hrm/delete/9
+DELETE  http://localhost:8000/api/hrm/delete/200
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
+###
+
+GET http://localhost:8000/api/hrm/getall?keyword=&gender=&limit=&offset=
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
 
 
