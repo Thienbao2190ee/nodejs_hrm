@@ -33,6 +33,9 @@ app.use(methodOverride(function(req, res) {
 require('./app/routes/auth.route')(app);
 app.use(jwtMiddleware.isAuth); // check login
 require('./app/routes/hrm.route')(app);
+require('./app/routes/city.route')(app);
+require('./app/routes/districts.route')(app);
+require('./app/routes/wards.route')(app);
 
 app.listen(process.env.PORT, function(){
     console.log('Server running: ' + process.env.BASE_URL + ':' + process.env.PORT);

@@ -16,7 +16,17 @@ exports.register = async (req, res) => {
       return res.send({ result: false, error: error.array() });
     }
 
-    const { name, email, phone, gender, birth, hometown } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      gender,
+      birth,
+      address,
+      cityID,
+      districtID,
+      wardID,
+    } = req.body;
 
     if (!regex.regexEmail.test(email)) {
       return res.send({
@@ -92,7 +102,10 @@ exports.register = async (req, res) => {
                 phone: phone,
                 birth: birth,
                 gender: gender,
-                hometown: hometown,
+                address: address,
+                cityID: cityID,
+                districtID: districtID,
+                wardID: wardID,
                 createdAt: Date.now(),
                 updatedAt: null,
               };
@@ -117,11 +130,50 @@ exports.register = async (req, res) => {
                           error: [err],
                         });
                       }
-                      return res.send({
-                        result: true,
-                        msg:constantNotify.ADD_DATA_SUCCESS,
-                        newData: dataRes,
-                      });
+                      conn.query(
+                        `SELECT full_name FROM tbl_city WHERE id = ?`,
+                        dataRes[0].cityID,
+                        (err, _res) => {
+                          if (err) {
+                            return res.send({
+                              result: false,
+                              error: constantNotify.ERROR,
+                            });
+                          }
+                          dataRes[0].cityName = _res[0].full_name;
+                          conn.query(
+                            `SELECT full_name FROM tbl_districts WHERE id = ?`,
+                            dataRes[0].districtID,
+                            (err, _res) => {
+                              if (err) {
+                                return res.send({
+                                  result: false,
+                                  error: constantNotify.ERROR,
+                                });
+                              }
+                              dataRes[0].districtName = _res[0].full_name;
+                              conn.query(
+                                `SELECT full_name FROM tbl_wards WHERE id = ?`,
+                                dataRes[0].wardID,
+                                (err, _res) => {
+                                  if (err) {
+                                    return res.send({
+                                      result: false,
+                                      error: constantNotify.ERROR,
+                                    });
+                                  }
+                                  dataRes[0].wardName = _res[0].full_name;
+                                  return res.send({
+                                    result: true,
+                                    msg: constantNotify.ADD_DATA_SUCCESS,
+                                    newData: dataRes,
+                                  });
+                                }
+                              );
+                            }
+                          );
+                        }
+                      );
                     }
                   );
                 } catch (error) {
@@ -155,7 +207,7 @@ exports.getAll = async (req, res) => {
       limit = dataSearch.limit;
     }
 
-    hrmService.getAll(dataSearch, offset, limit, (err, res_) => {
+    hrmService.getAll(dataSearch, offset, limit, (err, dataRes) => {
       if (err) {
         return res.send({
           result: false,
@@ -165,11 +217,55 @@ exports.getAll = async (req, res) => {
 
       // Calculate TotalPage
       const totalPage = Math.ceil(total / limit);
-
-      return res.send({
-        result: true,
-        totalPage: totalPage ? totalPage : 0,
-        data: res_,
+      db.getConnection((err, conn) => {
+        if (err) {
+          console.log("connect db fail");
+          return;
+        }
+        conn.query(
+          `SELECT full_name FROM tbl_city WHERE id = ?`,
+          dataRes[0].cityID,
+          (err, _res) => {
+            if (err) {
+              return res.send({
+                result: false,
+                error: constantNotify.ERROR,
+              });
+            }
+            dataRes[0].cityName = _res[0].full_name;
+            conn.query(
+              `SELECT full_name FROM tbl_districts WHERE id = ?`,
+              dataRes[0].districtID,
+              (err, _res) => {
+                if (err) {
+                  return res.send({
+                    result: false,
+                    error: constantNotify.ERROR,
+                  });
+                }
+                dataRes[0].districtName = _res[0].full_name;
+                conn.query(
+                  `SELECT full_name FROM tbl_wards WHERE id = ?`,
+                  dataRes[0].wardID,
+                  (err, _res) => {
+                    if (err) {
+                      return res.send({
+                        result: false,
+                        error: constantNotify.ERROR,
+                      });
+                    }
+                    dataRes[0].wardName = _res[0].full_name;
+                    return res.send({
+                      result: true,
+                      totalPage: totalPage ? totalPage : 0,
+                      newData: dataRes,
+                    });
+                  }
+                );
+              }
+            );
+          }
+        );
       });
     });
   } catch (error) {
@@ -186,20 +282,64 @@ exports.getById = async (req, res) => {
   try {
     const id = req.params.id;
 
-    hrmService.getbyid(id, (err, res_) => {
+    hrmService.getbyid(id, (err, dataRes) => {
       if (err) {
         return res.send({
           result: false,
           error: [err],
         });
       }
+      db.getConnection((err, conn) => {
+        if (err) {
+          console.log("connect db fail");
+          return;
+        }
+        conn.query(
+          `SELECT full_name FROM tbl_city WHERE id = ?`,
+          dataRes[0].cityID,
+          (err, _res) => {
+            if (err) {
+              return res.send({
+                result: false,
+                error: constantNotify.ERROR,
+              });
+            }
+            dataRes[0].cityName = _res[0].full_name;
+            conn.query(
+              `SELECT full_name FROM tbl_districts WHERE id = ?`,
+              dataRes[0].districtID,
+              (err, _res) => {
+                if (err) {
+                  return res.send({
+                    result: false,
+                    error: constantNotify.ERROR,
+                  });
+                }
+                dataRes[0].districtName = _res[0].full_name;
+                conn.query(
+                  `SELECT full_name FROM tbl_wards WHERE id = ?`,
+                  dataRes[0].wardID,
+                  (err, _res) => {
+                    if (err) {
+                      return res.send({
+                        result: false,
+                        error: constantNotify.ERROR,
+                      });
+                    }
+                    dataRes[0].wardName = _res[0].full_name;
+                    return res.send({
+                      result: true,
+                      newData: dataRes,
+                    });
+                  }
+                );
+              }
+            );
+          }
+        );
+      });
 
       // Calculate TotalPage
-
-      return res.send({
-        result: true,
-        data: res_,
-      });
     });
   } catch (error) {
     console.log(error);
@@ -221,7 +361,17 @@ exports.update = async (req, res) => {
       return res.send({ result: false, error: error.array() });
     }
 
-    const { name, email, phone, gender, birth, hometown } = req.body;
+    const {
+      name,
+      email,
+      phone,
+      gender,
+      birth,
+      address,
+      cityID,
+      districtID,
+      wardID,
+    } = req.body;
 
     const id = req.params.id;
 
@@ -302,7 +452,10 @@ exports.update = async (req, res) => {
                 phone: phone,
                 birth: birth,
                 gender: gender,
-                hometown: hometown,
+                address: address,
+                cityID: cityID,
+                districtID: districtID,
+                wardID: wardID,
                 updatedAt: Date.now(),
               };
 
@@ -314,17 +467,57 @@ exports.update = async (req, res) => {
                       error: [err],
                     });
                   }
-                  const newData = {
-                    id,
-                    ...data,
-                  };
-                  return res.send({
-                    result: true,
-                    data: {
-                      msg: constantNotify.UPDATE_DATA_SUCCESS,
-                      newData: newData,
+                  const dataRes = [
+                    {
+                      id,
+                      ...data,
                     },
-                  });
+                  ];
+
+                  conn.query(
+                    `SELECT full_name FROM tbl_city WHERE id = ?`,
+                    dataRes[0].cityID,
+                    (err, _res) => {
+                      if (err) {
+                        return res.send({
+                          result: false,
+                          error: constantNotify.ERROR,
+                        });
+                      }
+                      dataRes[0].cityName = _res[0].full_name;
+                      conn.query(
+                        `SELECT full_name FROM tbl_districts WHERE id = ?`,
+                        dataRes[0].districtID,
+                        (err, _res) => {
+                          if (err) {
+                            return res.send({
+                              result: false,
+                              error: constantNotify.ERROR,
+                            });
+                          }
+                          dataRes[0].districtName = _res[0].full_name;
+                          conn.query(
+                            `SELECT full_name FROM tbl_wards WHERE id = ?`,
+                            dataRes[0].wardID,
+                            (err, _res) => {
+                              if (err) {
+                                return res.send({
+                                  result: false,
+                                  error: constantNotify.ERROR,
+                                });
+                              }
+                              dataRes[0].wardName = _res[0].full_name;
+                              return res.send({
+                                result: true,
+                                msg: constantNotify.UPDATE_DATA_SUCCESS,
+                                newData: dataRes,
+                              });
+                            }
+                          );
+                        }
+                      );
+                    }
+                  );
                 } catch (error) {
                   console.log("hrm update ====>", error);
                 }
@@ -353,7 +546,7 @@ exports.delete = async (req, res) => {
 
       res.send({
         result: true,
-        msg: constantNotify.DELETE_DATA_SUCCESS 
+        msg: constantNotify.DELETE_DATA_SUCCESS,
       });
     });
   } catch (error) {

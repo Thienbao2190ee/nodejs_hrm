@@ -81,10 +81,11 @@ exports.getbyid = (id, result) => {
 //register
 exports.updateById = async (id, data, result) => {
     try {
-        const query = `UPDATE ${tableName} SET name =?,email =?, phone =?,gender =?,birth =?,hometown =?, updatedAt=? WHERE id = ?`;
-        const {name, email, phone, gender, birth, hometown, updatedAt} = data
-        db.query(query, [name, email, phone, gender, birth, hometown,updatedAt,id], (err, dataRes) => {
+        const query = `UPDATE ${tableName} SET name =?,email =?, phone =?,gender =?,birth =?,address =?,cityID =?,districtID =? ,wardID =? , updatedAt=? WHERE id = ?`;
+        const {name, email, phone, gender, birth, address,cityID,districtID,wardID,  updatedAt} = data
+        db.query(query, [name, email, phone, gender, birth, address,cityID,districtID,wardID,updatedAt,id], (err, dataRes) => {
             if (err) {
+                console.log(err);
                 return result({ msg: constantNotify.UPDATE_DATA_FAILED }, null);
             }
             if (dataRes.affectedRows === 0) {

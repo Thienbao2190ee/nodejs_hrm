@@ -19,7 +19,13 @@ module.exports = app => {
         .notEmpty(),
         body('birth','Ngày sinh không được bỏ trống')
         .notEmpty(),
-        body('hometown','Nguyên quán không được bỏ trống')
+        body('address','Địa chỉ không được bỏ trống')
+        .notEmpty(),
+        body('cityID','Tỉnh thành không được bỏ trống')
+        .notEmpty(),
+        body('districtID','Quận/huyện không được bỏ trống')
+        .notEmpty(),
+        body('wardID','Xã/phường không được bỏ trống')
         .notEmpty(),
     ], hrmController.register)
     //updatebyid
@@ -34,7 +40,13 @@ module.exports = app => {
         .notEmpty(),
         body('birth','Ngày sinh không được bỏ trống')
         .notEmpty(),
-        body('hometown','Nguyên quán không được bỏ trống')
+        body('address','Địa chỉ không được bỏ trống')
+        .notEmpty(),
+        body('cityID','Tỉnh thành không được bỏ trống')
+        .notEmpty(),
+        body('districtID','Quận/huyện không được bỏ trống')
+        .notEmpty(),
+        body('wardID','Xã/phường không được bỏ trống')
         .notEmpty(),
     ], hrmController.update)
     //delete

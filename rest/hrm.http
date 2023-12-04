@@ -5,32 +5,38 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ikzhu
 
 {
      "name": "lại Nguyễn Hoàng Long",
-     "email": "thienbao9@gmail.com",
-     "phone": "0908111229",
+     "email": "thienbao123@gmail.com",
+     "phone": "0909111225",
      "gender": 0,
      "birth": 1095783324,
-     "hometown": "51/9, Khu phố an thuận 1, Phường 7, TP Tân An, Long An"
+     "cityID":"01",
+     "districtID":"001",
+     "wardID":"00006",
+     "address": "51/9, Khu phố an thuận 1"
 }
 ###
 
-GET http://localhost:8000/api/hrm/getbyid/7
+GET http://localhost:8000/api/hrm/getbyid/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
 
 
 
 ###
-PUT http://localhost:8000/api/hrm/updatebyid/9
+PUT http://localhost:8000/api/hrm/updatebyid/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
 
 {
-     "name": "lại Nguyễn Thiên Bảo",
-     "email": "thienbao2@gmail.com",
-     "phone": "0908011429",
+     "name": "lại Nguyễn Hoàng Long",
+     "email": "thienbao123@gmail.com",
+     "phone": "0909111225",
      "gender": 0,
      "birth": 1095783324,
-     "hometown": "51/9, Khu phố an thuận 1, Phường 7, TP Tân An, Long An"
+     "cityID":"01",
+     "districtID":"001",
+     "wardID":"00006",
+     "address": "51/9, Khu phố an thuận 1"
 }
 
 ###

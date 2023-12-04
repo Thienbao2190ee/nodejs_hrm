@@ -1,0 +1,17 @@
+GET http://localhost:8000/api/city/getall
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
+###
+
+GET http://localhost:8000/api/districts/getall?cityid=
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
+###
+
+GET http://localhost:8000/api/wards/getall?districtsid=028
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
+
