@@ -1,11 +1,35 @@
 POST http://localhost:8000/api/hrm/register
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
 
 {
-     "name": "lại Nguyễn Thiên Bảo",
-     "email": "thienbao2190e@gmail.com",
-     "phone": "0908011419",
+     "name": "lại Nguyễn Hoàng Long",
+     "email": "thienbao5@gmail.com",
+     "phone": "0908011429",
      "gender": 0,
      "birth": 1095783324,
      "hometown": "51/9, Khu phố an thuận 1, Phường 7, TP Tân An, Long An"
 }
+
+###
+PUT http://localhost:8000/api/hrm/updatebyid/9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
+{
+     "name": "lại Nguyễn Thiên Bảo",
+     "email": "thienbao5@gmail.com",
+     "phone": "0908011429",
+     "gender": 0,
+     "birth": 1095783324,
+     "hometown": "51/9, Khu phố an thuận 1, Phường 7, TP Tân An, Long An"
+}
+
+###
+
+DELETE  http://localhost:8000/api/hrm/delete/9
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
+
+

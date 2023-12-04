@@ -7,6 +7,8 @@ const constantNotify = {
     ADD_DATA_SUCCESS: 'Thêm thành công',
     REGISTER_SUCCESS: 'Đăng ký thành công',
     LOGIN_SUCCESS: 'Đăng nhập thành công',
+    UPDATE_DATA_SUCCESS: 'Cập nhật thành công',
+    UPDATE_DATA_FAILED: 'Cập nhật thất bại',
     ACCOUNT_FAILED: 'Tài khoản không chính xác',
     EMAIL_FAILED: 'Email không chính xác',
     PASS_FAILED: 'Mật khẩu không chính xác',
@@ -14,7 +16,10 @@ const constantNotify = {
     VALIDATE_EMAIL:'Email không đúng định dạng',
     VALIDATE_PHONE:'Số điện thoại không đúng định dạng',
     SEND_SUCCESS:'Gữi email thành công',
-    CODE_SUCCESS:'Xác minh thành công'
+    CODE_SUCCESS:'Xác minh thành công',
+    DELETE_DATA_SUCCESS: 'Xóa thành công',
+    DELETE_DATA_FAILED: 'Xóa thất bại',
+    NOT_EXITS: 'không tồn tại',
 
 }
 module.exports = constantNotify;
