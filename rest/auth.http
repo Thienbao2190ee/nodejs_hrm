@@ -12,7 +12,7 @@ POST http://localhost:8000/api/auth/register
 Content-Type: application/json
 
 {
-     "email": "thienbao2190e@gmail.com",
+     "email": "thienbaoe@gmail.com",
      "fullName": "full name 4",
      "password": "Optech123"
 }
@@ -25,4 +25,9 @@ Content-Type: application/json
      "email": "thienbao2190e@gmail.com",
      "code": "207763"
 }
+
+###
+GET http://localhost:8000/api/auth/getinfo/60
+Content-Type: application/json
+
 

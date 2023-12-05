@@ -26,5 +26,7 @@ module.exports = app => {
         .notEmpty(),
     ], authController.sendEmail)
 
+    router.get('/getinfo/:id', authController.getInfo)
+
     app.use('/api/auth', router);
 }

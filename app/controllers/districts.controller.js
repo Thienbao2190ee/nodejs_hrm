@@ -5,12 +5,12 @@ exports.getAll = async (req, res) => {
     try {
       console.log(req.params);
       const cityID = req.query.cityid
-      if(!cityID) {
-        return res.send({
-          result: false,
-          error: "CityID không được bỏ trống",
-        });
-      }
+      // if(!cityID) {
+      //   return res.send({
+      //     result: false,
+      //     error: "CityID không được bỏ trống",
+      //   });
+      // }
       districtsService.getAll(cityID ,(err, res_) => {
         if (err) {
           return res.send({

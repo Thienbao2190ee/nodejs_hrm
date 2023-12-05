@@ -6,7 +6,7 @@ const tableName = 'tbl_city'
 
 exports.getAll = async (result) => {
     try {
-        const query = `SELECT * FROM ${tableName} `;
+        const query = `SELECT id,full_name FROM ${tableName} `;
         
         db.query(query, (err, dataRes) => {
             if (err) {

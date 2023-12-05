@@ -6,7 +6,7 @@ const tableName = 'tbl_wards'
 
 exports.getAll = async (districtsID,result) => {
     try {
-        const query = `SELECT * FROM ${tableName} WHERE districtID =?`;
+        const query = `SELECT id,full_name FROM ${tableName} WHERE districtID =?`;
         
         db.query(query,[districtsID], (err, dataRes) => {
             if (err) {

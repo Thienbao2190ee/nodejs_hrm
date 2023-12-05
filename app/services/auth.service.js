@@ -30,7 +30,6 @@ exports.login = async (email,password,result ) => {
             conn.query(`SELECT id,password FROM ${tableName} WHERE email = ?`,email,async(err,dataRes) => {
                 try {
                     if (err) {
-                        console.log(err);
                         return result({ msg: constantNotify.ERROR }, null);
                     }
                     if (dataRes.length === 0) {
@@ -103,3 +102,22 @@ exports.checkCodeGmail = async (email,code,result ) => {
         console.log(error);
     }
 } 
+
+exports.getbyid = async (id, result) => {
+    try {
+        db.getConnection((err,conn) => {
+            if (err) {
+                return result({ msg: constantNotify.ERROR }, null);
+            }
+            conn.query(`SELECT id,email,fullName,createdAt FROM ${tableName} WHERE id =?`,[id], (err,dataRes) => {
+                if(err){
+                    return result({msg : constantNotify.ERROR},null)
+                }
+                return result(null,dataRes)
+            })
+            conn.release()
+        })
+    } catch (error) {
+        
+    }
+}

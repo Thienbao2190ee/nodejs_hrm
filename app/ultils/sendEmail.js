@@ -13,7 +13,7 @@ const sendEmail = async (dataSendEmail) => {
     });
 
     const mailOptions = {
-        from: '"ALE App" <info@aleapp.com>', // sender address
+        from: '"Optech" <info@optech.com>', // sender address
         to: dataSendEmail.to,
         subject: dataSendEmail.subject,
         text: dataSendEmail.text,

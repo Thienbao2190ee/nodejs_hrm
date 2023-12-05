@@ -4,12 +4,12 @@ const wardsService = require("../services/wards.service");
 exports.getAll = async (req, res) => {
     try {
       const districtsID = req.query.districtsid
-      if(!districtsID){
-        return res.send({
-          result: false,
-          error: "DistrictsID không được bỏ trống",
-        });
-      }
+      // if(!districtsID){
+      //   return res.send({
+      //     result: false,
+      //     error: "DistrictsID không được bỏ trống",
+      //   });
+      // }
       wardsService.getAll(districtsID,(err, res_) => {
         if (err) {
           return res.send({

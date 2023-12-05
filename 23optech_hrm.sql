@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th12 05, 2023 lúc 12:45 AM
+-- Thời gian đã tạo: Th12 05, 2023 lúc 10:40 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -922,9 +922,18 @@ CREATE TABLE `tbl_hrm` (
 --
 
 INSERT INTO `tbl_hrm` (`id`, `name`, `phone`, `email`, `gender`, `birth`, `address`, `createdAt`, `updatedAt`, `cityID`, `districtID`, `wardID`) VALUES
-(3, 'Lại Nguyễn Thiên Bảo 2', '0908011411', 'thienbao2@gmail.com', 0, 1701710200097, '11', 1701708740282, 1701710211078, '01', '020', '00649'),
-(4, 'lại Nguyễn Hoàng Long', '0909111225', 'thienbao123@gmail.com', 0, 1095783324, '51/9, Khu phố an thuận 1', 1701710143052, 1701737066932, '01', '001', '00006'),
-(5, 'lại Nguyễn Hoàng Long', '0909111125', 'thienbao1234@gmail.com', 0, 1095783324, '51/9, Khu phố an thuận 1', 1701737049724, NULL, '01', '001', '00006');
+(9, 'Lại Nguyễn Thiên Bảo 3', '0908011413', 'thienbao3@gmail.com', 0, 1165313948894, '111', 1701744908212, 1701771736960, '01', '003', '00103'),
+(15, 'Lại Nguyễn Thiên Bảo 9', '0908011419', 'thienbao9@gmail.com', 0, 876243600000, '9', 1701746878516, 1701771499471, '08', '070', '02200'),
+(16, 'Lại Nguyễn Thiên Bảo 10', '0908011420', 'thienbao10@gmail.com', 1, 932490000000, '10', 1701746908766, 1701771491454, '51', '522', '21010'),
+(17, 'Lại Nguyễn Thiên Bảo 11', '0908011421', 'thienbao11@gmail.com', 1, 1080147600000, '11', 1701746932965, 1701771478664, '49', '503', '20428'),
+(18, 'Lại Nguyễn Thiên Bảo 12', '0908011422', 'thienbao12@gmail.com', 0, 969210000000, '12', 1701747414843, 1701771465736, '46', '474', '19777'),
+(22, 'Lưu Trung Nghĩa', '0900000011', 'nghiaOMG@gmail.com', 0, 961606800000, '111', 1701752290286, 1701771455081, '80', '794', '27697'),
+(23, 'Lã Xuân Oai', '0908011111', 'oai@gmail.com', 0, 968691600000, '11', 1701759791770, 1701771444025, '01', '001', '00001'),
+(33, 'Huỳnh Ngọc Thùy Trang', '0908011617', 'trang@gmail.com', 0, 945104400000, '111', 1701768358156, 1701771433299, '01', '001', '00001'),
+(34, 'Nguyễn Ngoc Kim Ngân ', '0908011516', 'ngan@gmail.com', 1, 1165315201379, '11', 1701768450541, 1701772803487, '01', '003', '00094'),
+(35, 'Nguyễn Thị Hồng Nhung', '0182833945', 'nhung@gmail.com', 0, 1165314847008, '12', 1701768549660, 1701772467258, '80', '794', '27703'),
+(36, 'Lại Nguyễn Thiên Bảo 2', '0908011412', 'thienbao2@gmail.com', 0, 1165314417566, '121', 1701768605091, 1701772106000, '79', '760', '26758'),
+(37, 'Lại Nguyễn Thiên Bảo', '0908011411', 'thienbao2190e@gmail.com', 0, 1165314879334, '121fdasf', 1701772546568, NULL, '01', '002', '00037');
 
 -- --------------------------------------------------------
 
@@ -937,8 +946,8 @@ CREATE TABLE `tbl_user` (
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `fullName` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(255) NOT NULL,
-  `accessToken` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `refreshToken` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `accessToken` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `refreshToken` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `createdAt` bigint NOT NULL,
   `updatedAt` bigint DEFAULT NULL,
   `generateOTP` int NOT NULL
@@ -949,14 +958,9 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id`, `email`, `fullName`, `password`, `accessToken`, `refreshToken`, `createdAt`, `updatedAt`, `generateOTP`) VALUES
-(32, 'xuanmaihoang6@gmail.com', 'full name 4', '$2a$12$L8Y5rdnIhuNoc24jzw8Eyud0epadgdYQel5wttSEpBzVlz6M45aU.', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6ImZ1bGwgbmFtZSA0IiwiaWF0IjoxNzAxNDA0MjY4LCJleHAiOjE3MDM5OTYyNjh9.4nybQ4i7r7SsjuyJcW1YHRT2ssTiUR48PmvPwZLNIVg', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6ImZ1bGwgbmFtZSA0IiwiaWF0IjoxNzAxNDA0MjY4LCJleHAiOjE3MTY5NTYyNjh9.RJHK-Ww96uxJdXrgVhvb2QHzC0C6h-xf-7HCAGg2cXM', 1701404269914, NULL, 417714),
-(52, 'thienbao2190e@gmail.com', 'Lại Nguyễn Thiên Bảo', '$2a$12$RDXX5zS4jQ6lc6NQlXBs8.CeZ6rVeanhyn0Ce8yjxRDsoucRtdXQa', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjUyLCJpYXQiOjE3MDE2ODEzNDYsImV4cCI6MTcxNzIzMzM0Nn0.NpRGqzl73PvH5GayVCl-0ZEbJxb-oCK76-uKuU64Lr8', 1701420283091, NULL, 556302),
-(53, 'nagisaizumi.4869@gamil.com', 'Lại Nguyễn Hoàng Long', '$2a$12$jiy6rz4109IOmj0.EsU48eVR9Xafil6ZTCIZo/.Ieme4C/jdDIdPW', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIEhvw6BuZyBMb25nIiwiaWF0IjoxNzAxNTAyMTE1LCJleHAiOjE3MDQwOTQxMTV9.ncBv7-kFbVsbxtvOKQYkhmsgYb6hknciaAphCpEg2Ck', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIEhvw6BuZyBMb25nIiwiaWF0IjoxNzAxNTAyMTE1LCJleHAiOjE3MTcwNTQxMTV9.tzp6FvC7fmhxmfvStz9QC5n-dCNylkWnZRTbf9Hf7BE', 1701502118966, NULL, 637952),
-(54, 'nagisaizumi4869@gamil.com', 'Lại Nguyễn Hoàng Long', '$2a$12$40kku0ypEdKYU8Li7kKxWexM471CcUtayFzkmsyc6CvdLbQ13Ziom', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIEhvw6BuZyBMb25nIiwiaWF0IjoxNzAxNTAyMTk0LCJleHAiOjE3MDQwOTQxOTR9.P2_5zNc57p18FPIVGD954Q_AFzETrSzajzUkRAP5rBQ', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIEhvw6BuZyBMb25nIiwiaWF0IjoxNzAxNTAyMTk0LCJleHAiOjE3MTcwNTQxOTR9.IxGEW6QL_QDAVvvWQNW0EGP_pkIp53uCme7SSB9aMs0', 1701502197091, NULL, 502061),
-(55, 'thay.phuc.mat.hip@gmail.com', 'Lại Nguyễn Hoàng Long', '$2a$12$VImCTv6QDbDvhZLZDBvOzONI6W8K09xM5VnKHY0bxnk1Adt4PfkSu', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIEhvw6BuZyBMb25nIiwiaWF0IjoxNzAxNTAyMjc0LCJleHAiOjE3MDQwOTQyNzR9.XIDg5MmoVmSqzL0ZJQoLtgl6kY84zln1KztIn0CcPZU', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjU1LCJpYXQiOjE3MDE1MDI2NDIsImV4cCI6MTcxNzA1NDY0Mn0.wfYDL222lna_4yybS6NhLnn-lPIKG_W1vDqf5Lv0kZo', 1701502278395, NULL, 133098),
-(56, 'hongnhunghongnhung250304@gamil.com', 'Nguyễn Thị Hồng Nhung', '$2a$12$vOE2BzpjAsquhPD2IHDgAONwZyKh7KT52RiLWknrGYkyljbvdwrMO', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ik5ndXnhu4VuIFRo4buLIEjhu5NuZyBOaHVuZyIsImlhdCI6MTcwMTUwMjgzNSwiZXhwIjoxNzA0MDk0ODM1fQ.HAwuPdHOgPuUWOWBDtIAvnbeOtHEbOilJ9VFb1aJ700', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ik5ndXnhu4VuIFRo4buLIEjhu5NuZyBOaHVuZyIsImlhdCI6MTcwMTUwMjgzNSwiZXhwIjoxNzE3MDU0ODM1fQ.5qiXhDCrY-akliiIj70R9l4vVpWk_BzHpevKDNldlXo', 1701502839942, NULL, 178385),
-(57, 'hongnhung250304@gamil.com', 'Nguyễn Thị Hồng Nhung', '$2a$12$cs.akFCNx0DfhwItPNyYb.2EiL9GyLRe1IqoEvuoIXwxZcnwTWnoK', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ik5ndXnhu4VuIFRo4buLIEjhu5NuZyBOaHVuZyIsImlhdCI6MTcwMTUwMjkwMywiZXhwIjoxNzA0MDk0OTAzfQ.NYBls7qAabNTbie3uPWWITVI0-YUrVqDivuML2nxPSc', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ik5ndXnhu4VuIFRo4buLIEjhu5NuZyBOaHVuZyIsImlhdCI6MTcwMTUwMjkwMywiZXhwIjoxNzE3MDU0OTAzfQ.UrVnLFcqW0ZQksv0sCVnuhlQUg2LX_Z6JKLItBj5UVc', 1701502906708, NULL, 143616),
-(58, 'nn608482@gmail.com', 'Nguyễn Thị Hồng Nhung', '$2a$12$F.60lKc1xt0WnPVFp.MFK.GRnPQTTGSmB4NVyix/7JpOxi8okBla.', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ik5ndXnhu4VuIFRo4buLIEjhu5NuZyBOaHVuZyIsImlhdCI6MTcwMTUwMzA0MiwiZXhwIjoxNzA0MDk1MDQyfQ.LdsFkGaSsc7CL6x2Uf8L2mxTQmKbdMMRjjMTDzQdFks', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ik5ndXnhu4VuIFRo4buLIEjhu5NuZyBOaHVuZyIsImlhdCI6MTcwMTUwMzA0MiwiZXhwIjoxNzE3MDU1MDQyfQ.sshZaLpRCpRGyYWmGeROJIhyzgb_a4UUyxUDgmuEroo', 1701503045965, NULL, 848259);
+(60, 'thienbao2190e@gmail.com', 'Lại Nguyễn Thiên Bảo', '$2a$12$X0QEgrtrvdVGudTxMFlGOO1hOxTb4697wscdgBjz.Mcpo0NdeeXTW', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTc2MjQ5MywiZXhwIjoxNzA0MzU0NDkzfQ.KFuqhfs9fgoXKAMxfUtBAbXlei1z7ktfpxKFysJWwcs', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOjYwLCJpYXQiOjE3MDE3NjYwNDMsImV4cCI6MTcxNzMxODA0M30.Kj99k088t2GpCPy9EZmpfLETiOrLkC8YJYSLDReVLgE', 1701762497233, NULL, 402533),
+(64, 'mivantom62@gmail.com', 'Mi Văn Tom', '$2a$12$CA/56ZLHBlZp8k62YqOlXeoQ/DqlMDD/FyqPAyiiKrsdWFkd8QvA2', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjY0LCJpYXQiOjE3MDE3NjU2NjYsImV4cCI6MTcwNDM1NzY2Nn0.vjYO_D9qp7sD89HQfcq6Uu3Cm2yesvNwDcW5Iehh4Es', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjY0LCJpYXQiOjE3MDE3NjU2NjYsImV4cCI6MTcxNzMxNzY2Nn0.JTFuTNhfLdK1W-G-Bkbek_K0xwI16453csfQB7Kwplo', 1701765666310, NULL, 514578),
+(65, 'thienbaoe@gmail.com', 'full name 4', '$2a$12$YQF/zU5R2OqxVhLzi8dgxu0hszaKOZIo7Gl6/6J9L1WAE8b4/oITe', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjY1LCJpYXQiOjE3MDE3NjU5NjIsImV4cCI6MTcwNDM1Nzk2Mn0.KH_Gk1QNUACwmQ-dCO4ix1-wibwbGLJwiG0_JjhogdA', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjY1LCJpYXQiOjE3MDE3NjU5NjIsImV4cCI6MTcxNzMxNzk2Mn0.s6a0ZI9NJeiEOO02zvWvjSJ0_clhdGRV3Vg2Qr1Jq-k', 1701765962310, NULL, 410338);
 
 -- --------------------------------------------------------
 
@@ -11658,13 +11662,13 @@ ALTER TABLE `tbl_wards`
 -- AUTO_INCREMENT cho bảng `tbl_hrm`
 --
 ALTER TABLE `tbl_hrm`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
