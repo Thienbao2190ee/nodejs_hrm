@@ -5,8 +5,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ikzhu
 
 {
      "name": "lại Nguyễn Hoàng Long",
-     "email": "thienbao123@gmail.com",
-     "phone": "0909111225",
+     "email": "thienbao1234@gmail.com",
+     "phone": "0909111125",
      "gender": 0,
      "birth": 1095783324,
      "cityID":"01",
@@ -16,14 +16,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6Ikzhu
 }
 ###
 
-GET http://localhost:8000/api/hrm/getbyid/1
+GET http://localhost:8000/api/hrm/getbyid/3
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
 
 
 
 ###
-PUT http://localhost:8000/api/hrm/updatebyid/1
+PUT http://localhost:8000/api/hrm/updatebyid/4
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmdWxsTmFtZSI6IkzhuqFpIE5ndXnhu4VuIFRoacOqbiBC4bqjbyIsImlhdCI6MTcwMTQyMDI4MCwiZXhwIjoxNzA0MDEyMjgwfQ.wpS5TKdG5zLjXtUYWyQfp98WmAyJ8ncmEE4BIlUnR6Y
 

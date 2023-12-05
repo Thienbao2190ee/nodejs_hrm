@@ -131,8 +131,11 @@ exports.register = async (req, res) => {
                         });
                       }
                       conn.query(
-                        `SELECT full_name FROM tbl_city WHERE id = ?`,
-                        dataRes[0].cityID,
+                        `SELECT tbl_city.full_name AS cityName, tbl_districts.full_name AS districtName, tbl_wards.full_name AS wardName
+                      FROM tbl_hrm
+                      JOIN tbl_city ON tbl_hrm.cityID = tbl_city.id
+                      JOIN tbl_districts ON tbl_hrm.districtID = tbl_districts.id
+                      JOIN tbl_wards ON tbl_hrm.wardID = tbl_wards.id`,
                         (err, _res) => {
                           if (err) {
                             return res.send({
@@ -140,40 +143,64 @@ exports.register = async (req, res) => {
                               error: constantNotify.ERROR,
                             });
                           }
-                          dataRes[0].cityName = _res[0].full_name;
-                          conn.query(
-                            `SELECT full_name FROM tbl_districts WHERE id = ?`,
-                            dataRes[0].districtID,
-                            (err, _res) => {
-                              if (err) {
-                                return res.send({
-                                  result: false,
-                                  error: constantNotify.ERROR,
-                                });
-                              }
-                              dataRes[0].districtName = _res[0].full_name;
-                              conn.query(
-                                `SELECT full_name FROM tbl_wards WHERE id = ?`,
-                                dataRes[0].wardID,
-                                (err, _res) => {
-                                  if (err) {
-                                    return res.send({
-                                      result: false,
-                                      error: constantNotify.ERROR,
-                                    });
-                                  }
-                                  dataRes[0].wardName = _res[0].full_name;
-                                  return res.send({
-                                    result: true,
-                                    msg: constantNotify.ADD_DATA_SUCCESS,
-                                    newData: dataRes,
-                                  });
-                                }
-                              );
+                          dataRes.forEach((item, index) => {
+                            if (_res[index]) {
+                              item.cityName = _res[index].cityName;
+                              item.districtName = _res[index].districtName;
+                              item.wardName = _res[index].wardName;
                             }
-                          );
+                          });
+                          return res.send({
+                            result: true,
+                            msg: constantNotify.ADD_DATA_SUCCESS,
+                            newData: dataRes,
+                          });
                         }
                       );
+                      // conn.query(
+                      //   `SELECT full_name FROM tbl_city WHERE id = ?`,
+                      //   dataRes[0].cityID,
+                      //   (err, _res) => {
+                      //     if (err) {
+                      //       return res.send({
+                      //         result: false,
+                      //         error: constantNotify.ERROR,
+                      //       });
+                      //     }
+                      //     dataRes[0].cityName = _res[0].full_name;
+                      //     conn.query(
+                      //       `SELECT full_name FROM tbl_districts WHERE id = ?`,
+                      //       dataRes[0].districtID,
+                      //       (err, _res) => {
+                      //         if (err) {
+                      //           return res.send({
+                      //             result: false,
+                      //             error: constantNotify.ERROR,
+                      //           });
+                      //         }
+                      //         dataRes[0].districtName = _res[0].full_name;
+                      //         conn.query(
+                      //           `SELECT full_name FROM tbl_wards WHERE id = ?`,
+                      //           dataRes[0].wardID,
+                      //           (err, _res) => {
+                      //             if (err) {
+                      //               return res.send({
+                      //                 result: false,
+                      //                 error: constantNotify.ERROR,
+                      //               });
+                      //             }
+                      //             dataRes[0].wardName = _res[0].full_name;
+                      //             return res.send({
+                      //               result: true,
+                      //               msg: constantNotify.ADD_DATA_SUCCESS,
+                      //               newData: dataRes,
+                      //             });
+                      //           }
+                      //         );
+                      //       }
+                      //     );
+                      //   }
+                      // );
                     }
                   );
                 } catch (error) {
@@ -223,8 +250,11 @@ exports.getAll = async (req, res) => {
           return;
         }
         conn.query(
-          `SELECT full_name FROM tbl_city WHERE id = ?`,
-          dataRes[0].cityID,
+          `SELECT tbl_city.full_name AS cityName, tbl_districts.full_name AS districtName, tbl_wards.full_name AS wardName
+        FROM tbl_hrm
+        JOIN tbl_city ON tbl_hrm.cityID = tbl_city.id
+        JOIN tbl_districts ON tbl_hrm.districtID = tbl_districts.id
+        JOIN tbl_wards ON tbl_hrm.wardID = tbl_wards.id`,
           (err, _res) => {
             if (err) {
               return res.send({
@@ -232,38 +262,18 @@ exports.getAll = async (req, res) => {
                 error: constantNotify.ERROR,
               });
             }
-            dataRes[0].cityName = _res[0].full_name;
-            conn.query(
-              `SELECT full_name FROM tbl_districts WHERE id = ?`,
-              dataRes[0].districtID,
-              (err, _res) => {
-                if (err) {
-                  return res.send({
-                    result: false,
-                    error: constantNotify.ERROR,
-                  });
-                }
-                dataRes[0].districtName = _res[0].full_name;
-                conn.query(
-                  `SELECT full_name FROM tbl_wards WHERE id = ?`,
-                  dataRes[0].wardID,
-                  (err, _res) => {
-                    if (err) {
-                      return res.send({
-                        result: false,
-                        error: constantNotify.ERROR,
-                      });
-                    }
-                    dataRes[0].wardName = _res[0].full_name;
-                    return res.send({
-                      result: true,
-                      totalPage: totalPage ? totalPage : 0,
-                      newData: dataRes,
-                    });
-                  }
-                );
+            dataRes.forEach((item, index) => {
+              if (_res[index]) {
+                item.cityName = _res[index].cityName;
+                item.districtName = _res[index].districtName;
+                item.wardName = _res[index].wardName;
               }
-            );
+            });
+            return res.send({
+              result: true,
+              totalPage: totalPage ? totalPage : 0,
+              newData: dataRes,
+            });
           }
         );
       });
@@ -295,8 +305,11 @@ exports.getById = async (req, res) => {
           return;
         }
         conn.query(
-          `SELECT full_name FROM tbl_city WHERE id = ?`,
-          dataRes[0].cityID,
+          `SELECT tbl_city.full_name AS cityName, tbl_districts.full_name AS districtName, tbl_wards.full_name AS wardName
+        FROM tbl_hrm
+        JOIN tbl_city ON tbl_hrm.cityID = tbl_city.id
+        JOIN tbl_districts ON tbl_hrm.districtID = tbl_districts.id
+        JOIN tbl_wards ON tbl_hrm.wardID = tbl_wards.id`,
           (err, _res) => {
             if (err) {
               return res.send({
@@ -304,37 +317,17 @@ exports.getById = async (req, res) => {
                 error: constantNotify.ERROR,
               });
             }
-            dataRes[0].cityName = _res[0].full_name;
-            conn.query(
-              `SELECT full_name FROM tbl_districts WHERE id = ?`,
-              dataRes[0].districtID,
-              (err, _res) => {
-                if (err) {
-                  return res.send({
-                    result: false,
-                    error: constantNotify.ERROR,
-                  });
-                }
-                dataRes[0].districtName = _res[0].full_name;
-                conn.query(
-                  `SELECT full_name FROM tbl_wards WHERE id = ?`,
-                  dataRes[0].wardID,
-                  (err, _res) => {
-                    if (err) {
-                      return res.send({
-                        result: false,
-                        error: constantNotify.ERROR,
-                      });
-                    }
-                    dataRes[0].wardName = _res[0].full_name;
-                    return res.send({
-                      result: true,
-                      newData: dataRes,
-                    });
-                  }
-                );
+            dataRes.forEach((item, index) => {
+              if (_res[index]) {
+                item.cityName = _res[index].cityName;
+                item.districtName = _res[index].districtName;
+                item.wardName = _res[index].wardName;
               }
-            );
+            });
+            return res.send({
+              result: true,
+              newData: dataRes,
+            });
           }
         );
       });
@@ -473,10 +466,12 @@ exports.update = async (req, res) => {
                       ...data,
                     },
                   ];
-
                   conn.query(
-                    `SELECT full_name FROM tbl_city WHERE id = ?`,
-                    dataRes[0].cityID,
+                    `SELECT tbl_city.full_name AS cityName, tbl_districts.full_name AS districtName, tbl_wards.full_name AS wardName
+                  FROM tbl_hrm
+                  JOIN tbl_city ON tbl_hrm.cityID = tbl_city.id
+                  JOIN tbl_districts ON tbl_hrm.districtID = tbl_districts.id
+                  JOIN tbl_wards ON tbl_hrm.wardID = tbl_wards.id`,
                     (err, _res) => {
                       if (err) {
                         return res.send({
@@ -484,40 +479,65 @@ exports.update = async (req, res) => {
                           error: constantNotify.ERROR,
                         });
                       }
-                      dataRes[0].cityName = _res[0].full_name;
-                      conn.query(
-                        `SELECT full_name FROM tbl_districts WHERE id = ?`,
-                        dataRes[0].districtID,
-                        (err, _res) => {
-                          if (err) {
-                            return res.send({
-                              result: false,
-                              error: constantNotify.ERROR,
-                            });
-                          }
-                          dataRes[0].districtName = _res[0].full_name;
-                          conn.query(
-                            `SELECT full_name FROM tbl_wards WHERE id = ?`,
-                            dataRes[0].wardID,
-                            (err, _res) => {
-                              if (err) {
-                                return res.send({
-                                  result: false,
-                                  error: constantNotify.ERROR,
-                                });
-                              }
-                              dataRes[0].wardName = _res[0].full_name;
-                              return res.send({
-                                result: true,
-                                msg: constantNotify.UPDATE_DATA_SUCCESS,
-                                newData: dataRes,
-                              });
-                            }
-                          );
+                      dataRes.forEach((item, index) => {
+                        if (_res[index]) {
+                          item.cityName = _res[index].cityName;
+                          item.districtName = _res[index].districtName;
+                          item.wardName = _res[index].wardName;
                         }
-                      );
+                      });
+                      return res.send({
+                        result: true,
+                        msg: constantNotify.UPDATE_DATA_SUCCESS,
+                        newData: dataRes,
+                      });
                     }
                   );
+
+                  // conn.query(
+                  //   `SELECT full_name FROM tbl_city WHERE id = ?`,
+                  //   dataRes[0].cityID,
+                  //   (err, _res) => {
+                  //     if (err) {
+                  //       return res.send({
+                  //         result: false,
+                  //         error: constantNotify.ERROR,
+                  //       });
+                  //     }
+                  //     dataRes[0].cityName = _res[0].full_name;
+                  //     conn.query(
+                  //       `SELECT full_name FROM tbl_districts WHERE id = ?`,
+                  //       dataRes[0].districtID,
+                  //       (err, _res) => {
+                  //         if (err) {
+                  //           return res.send({
+                  //             result: false,
+                  //             error: constantNotify.ERROR,
+                  //           });
+                  //         }
+                  //         dataRes[0].districtName = _res[0].full_name;
+                  //         conn.query(
+                  //           `SELECT full_name FROM tbl_wards WHERE id = ?`,
+                  //           dataRes[0].wardID,
+                  //           (err, _res) => {
+                  //             if (err) {
+                  //               return res.send({
+                  //                 result: false,
+                  //                 error: constantNotify.ERROR,
+                  //               });
+                  //             }
+                  //             dataRes[0].wardName = _res[0].full_name;
+                  //             return res.send({
+                  //               result: true,
+                  //               msg: constantNotify.UPDATE_DATA_SUCCESS,
+                  //               newData: dataRes,
+                  //             });
+                  //           }
+                  //         );
+                  //       }
+                  //     );
+                  //   }
+                  // );
                 } catch (error) {
                   console.log("hrm update ====>", error);
                 }
