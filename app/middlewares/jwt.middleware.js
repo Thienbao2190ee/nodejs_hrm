@@ -5,10 +5,13 @@ const isAuth = async function(req, res, next) {
     console.log(req.headers.authorization);
     if(_token){
         try {
-            var authData = await jwt.checkToken(_token);
+            var authData = await jwt.checkToken(_token).then((data)=>{
+                req.auth = authData;
+                req.userID = data.data.userid
+                next();
+            });
+            
             // console.log(authData);
-            req.auth = authData;
-            next();
         } catch (error) {
             return res.send({result: false, message: "Invalid token or token expired"});
         }

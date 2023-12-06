@@ -9,11 +9,16 @@ module.exports = app => {
         body('title','Tiêu đề không được bỏ trống').notEmpty(),
         body('des','Mô tả không được bỏ trống').notEmpty(),
     ], newController.register)
+    router.get("/getall", newController.getAll);
+    router.get("/getbyid/:id", newController.getById);
+    router.put("/update-active/:id", newController.updateActive);
 
     router.put('/updatebyid/:id',uploadImages.single('image'),[
         body('title','Tiêu đề không được bỏ trống').notEmpty(),
         body('des','Mô tả không được bỏ trống').notEmpty(),
     ], newController.update)
+
+    router.delete('/delete/:id',newController.delete)
 
 
     app.use('/api/new', router);

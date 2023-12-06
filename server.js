@@ -7,6 +7,10 @@ const methodOverride = require('method-override');
 
 require('dotenv').config();
 
+const path = require('path')
+
+app.use(express.static(path.join(__dirname,"uploads")))
+
 const jwtMiddleware = require('./app/middlewares/jwt.middleware');
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*"); //Cấp quyền cho client được truy cập để sử dụng tài nguyên, "*" là tất cả client.
@@ -31,8 +35,8 @@ app.use(methodOverride(function(req, res) {
 
 // routes list
 require('./app/routes/auth.route')(app);
-require('./app/routes/new.route')(app);
 // app.use(jwtMiddleware.isAuth); // check login
+require('./app/routes/new.route')(app);
 require('./app/routes/hrm.route')(app);
 require('./app/routes/city.route')(app);
 require('./app/routes/districts.route')(app);
