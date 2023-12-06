@@ -19,6 +19,7 @@ const constantNotify = {
     CODE_SUCCESS:'Xác minh thành công',
     DELETE_DATA_SUCCESS: 'Xóa thành công',
     DELETE_DATA_FAILED: 'Xóa thất bại',
+    VALIDATE_FILE_SIZE: 'Dung lượng file ảnh đại diện phải nhỏ hơn 2MB',
     NOT_EXITS: 'không tồn tại',
 
 }

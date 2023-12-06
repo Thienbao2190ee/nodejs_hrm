@@ -31,7 +31,8 @@ app.use(methodOverride(function(req, res) {
 
 // routes list
 require('./app/routes/auth.route')(app);
-app.use(jwtMiddleware.isAuth); // check login
+require('./app/routes/new.route')(app);
+// app.use(jwtMiddleware.isAuth); // check login
 require('./app/routes/hrm.route')(app);
 require('./app/routes/city.route')(app);
 require('./app/routes/districts.route')(app);
