@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th12 05, 2023 lúc 10:40 AM
+-- Thời gian đã tạo: Th12 06, 2023 lúc 10:49 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -924,7 +924,6 @@ CREATE TABLE `tbl_hrm` (
 INSERT INTO `tbl_hrm` (`id`, `name`, `phone`, `email`, `gender`, `birth`, `address`, `createdAt`, `updatedAt`, `cityID`, `districtID`, `wardID`) VALUES
 (9, 'Lại Nguyễn Thiên Bảo 3', '0908011413', 'thienbao3@gmail.com', 0, 1165313948894, '111', 1701744908212, 1701771736960, '01', '003', '00103'),
 (15, 'Lại Nguyễn Thiên Bảo 9', '0908011419', 'thienbao9@gmail.com', 0, 876243600000, '9', 1701746878516, 1701771499471, '08', '070', '02200'),
-(16, 'Lại Nguyễn Thiên Bảo 10', '0908011420', 'thienbao10@gmail.com', 1, 932490000000, '10', 1701746908766, 1701771491454, '51', '522', '21010'),
 (17, 'Lại Nguyễn Thiên Bảo 11', '0908011421', 'thienbao11@gmail.com', 1, 1080147600000, '11', 1701746932965, 1701771478664, '49', '503', '20428'),
 (18, 'Lại Nguyễn Thiên Bảo 12', '0908011422', 'thienbao12@gmail.com', 0, 969210000000, '12', 1701747414843, 1701771465736, '46', '474', '19777'),
 (22, 'Lưu Trung Nghĩa', '0900000011', 'nghiaOMG@gmail.com', 0, 961606800000, '111', 1701752290286, 1701771455081, '80', '794', '27697'),
@@ -933,7 +932,35 @@ INSERT INTO `tbl_hrm` (`id`, `name`, `phone`, `email`, `gender`, `birth`, `addre
 (34, 'Nguyễn Ngoc Kim Ngân ', '0908011516', 'ngan@gmail.com', 1, 1165315201379, '11', 1701768450541, 1701772803487, '01', '003', '00094'),
 (35, 'Nguyễn Thị Hồng Nhung', '0182833945', 'nhung@gmail.com', 0, 1165314847008, '12', 1701768549660, 1701772467258, '80', '794', '27703'),
 (36, 'Lại Nguyễn Thiên Bảo 2', '0908011412', 'thienbao2@gmail.com', 0, 1165314417566, '121', 1701768605091, 1701772106000, '79', '760', '26758'),
-(37, 'Lại Nguyễn Thiên Bảo', '0908011411', 'thienbao2190e@gmail.com', 0, 1165314879334, '121fdasf', 1701772546568, NULL, '01', '002', '00037');
+(37, 'Lại Nguyễn Thiên Bảo', '0908011411', 'thienbao2190e@gmail.com', 0, 1165314879334, '121fdasf', 1701772546568, NULL, '01', '002', '00037'),
+(38, 'Lại Nguyễn Thiên Bảo', '0333011419', 'test@gmail.com', 0, 1165393917832, 'Tân An', 1701851548037, NULL, '02', '027', '00769');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `tbl_new`
+--
+
+CREATE TABLE `tbl_new` (
+  `id` int NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `des` varchar(255) DEFAULT NULL,
+  `createdAt` bigint DEFAULT NULL,
+  `updatedAt` bigint DEFAULT NULL,
+  `active` tinyint DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `tbl_new`
+--
+
+INSERT INTO `tbl_new` (`id`, `title`, `des`, `createdAt`, `updatedAt`, `active`, `image`) VALUES
+(28, 'tiêu đề 2', 'mô tả', 1701859096534, NULL, 1, 'image_3403718193045.jpg'),
+(29, 'tiêu đề 3', 'tiêu đề 2', 1701859147510, NULL, 1, 'image_3403718295019.jpg'),
+(30, 'tiêu đề 4', '11111', 1701859220360, NULL, 0, 'image_3403718440713.jpg'),
+(31, 'tiêu đề 5', '11111', 1701859244955, NULL, 1, 'image_3403718489913.jpg'),
+(32, 'tiêu đề 6', '1111', 1701859252599, 1701859665714, 1, 'image_3403719331427.jpg');
 
 -- --------------------------------------------------------
 
@@ -11641,6 +11668,12 @@ ALTER TABLE `tbl_hrm`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `tbl_new`
+--
+ALTER TABLE `tbl_new`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Chỉ mục cho bảng `tbl_user`
 --
 ALTER TABLE `tbl_user`
@@ -11662,7 +11695,13 @@ ALTER TABLE `tbl_wards`
 -- AUTO_INCREMENT cho bảng `tbl_hrm`
 --
 ALTER TABLE `tbl_hrm`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+
+--
+-- AUTO_INCREMENT cho bảng `tbl_new`
+--
+ALTER TABLE `tbl_new`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_user`
