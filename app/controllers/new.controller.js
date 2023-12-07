@@ -272,68 +272,106 @@ exports.update = async (req, res) => {
               if (err) return res.send({ result: false, error: [err] });
               const oldImageName = res_[0].image;
 
+              console.log("oldImageName", oldImageName);
+              console.log(directoryPath, "===", directoryThumbPath);
+
               if (fs.existsSync(directoryPath + oldImageName)) {
                 await fs.unlinkSync(directoryPath + oldImageName);
               }
               if (fs.existsSync(directoryThumbPath + oldImageName)) {
                 await fs.unlinkSync(directoryThumbPath + oldImageName);
               }
-              await sharp(req?.file?.path)
-                .resize({ width: 150, height: 150 })
-                .toFile(
-                  `uploads/new/thumb/` + req?.file?.filename,
-                  async (err) => {
-                    if (err) {
-                      console.log("====", err);
-                      if (fs.existsSync(directoryPath + file.filename)) {
-                        await fs.unlinkSync(directoryPath + file.filename);
+            });
+            await sharp(req?.file?.path)
+              .resize({ width: 150, height: 150 })
+              .toFile(
+                `uploads/new/thumb/` + req?.file?.filename,
+                async (err) => {
+                  if (err) {
+                    console.log("====", err);
+                    if (fs.existsSync(directoryPath + file.filename)) {
+                      await fs.unlinkSync(directoryPath + file.filename);
+                    }
+                    if (fs.existsSync(directoryThumbPath + file.filename)) {
+                      await fs.unlinkSync(directoryThumbPath + file.filename);
+                    }
+                    conn.release();
+                    return res.send({
+                      result: false,
+                      error: [{ msg: constantNotify.ERROR }],
+                    });
+                  }
+                  const data = {
+                    title,
+                    des,
+                    image: !file ? image : file.filename,
+                    active,
+                    updatedAt: Date.now(),
+                  };
+                  newService.updateById(id, data, (err, res_) => {
+                    try {
+                      if (err) {
+                        return res.send({
+                          result: false,
+                          error: [err],
+                        });
                       }
-                      if (fs.existsSync(directoryThumbPath + file.filename)) {
-                        await fs.unlinkSync(directoryThumbPath + file.filename);
-                      }
-                      conn.release();
+                      const dataRes = [
+                        {
+                          id,
+                          ...data,
+                        },
+                      ];
+                      return res.send({
+                        result: true,
+                        newData: dataRes,
+                      });
+                    } catch (error) {
+                      console.log(error);
                       return res.send({
                         result: false,
-                        error: [{ msg: constantNotify.ERROR }],
+                        error: constantNotify.SERVER_ERROR,
                       });
                     }
-                  }
-                );
-            });
-          }
-          const data = {
-            title,
-            des,
-            image: !file ? image : file.filename,
-            active,
-            updatedAt: Date.now(),
-          };
-          newService.updateById(id, data, (err, res_) => {
-            try {
-              if (err) {
+                  });
+                  console.log("next");
+                }
+              );
+          } else {
+            const data = {
+              title,
+              des,
+              image: !file ? image : file.filename,
+              active,
+              updatedAt: Date.now(),
+            };
+            newService.updateById(id, data, (err, res_) => {
+              try {
+                if (err) {
+                  return res.send({
+                    result: false,
+                    error: [err],
+                  });
+                }
+                const dataRes = [
+                  {
+                    id,
+                    ...data,
+                  },
+                ];
+                return res.send({
+                  result: true,
+                  newData: dataRes,
+                });
+              } catch (error) {
+                console.log(error);
                 return res.send({
                   result: false,
-                  error: [err],
+                  error: constantNotify.SERVER_ERROR,
                 });
               }
-              const dataRes = [
-                {
-                  id,
-                  ...data,
-                },
-              ];
-              return res.send({
-                result: true,
-                newData: dataRes,
-              });
-            } catch (error) {
-              console.log(error);
-              return res.send({
-                result: false,
-                error: constantNotify.SERVER_ERROR,
-              });
-            }
-          });
+            });
+          }
         }
       );
 
@@ -367,11 +405,11 @@ exports.delete = async (req, res) => {
               error: [err],
             });
           }
-          if (fs.existsSync(directoryPath + file.filename)) {
-            await fs.unlinkSync(directoryPath + file.filename);
+          if (fs.existsSync(directoryPath + oldImageName)) {
+            await fs.unlinkSync(directoryPath + oldImageName);
           }
-          if (fs.existsSync(directoryThumbPath + file.filename)) {
-            await fs.unlinkSync(directoryThumbPath + file.filename);
+          if (fs.existsSync(directoryThumbPath + oldImageName)) {
+            await fs.unlinkSync(directoryThumbPath + oldImageName);
           }
           return res.send({
             result: true,

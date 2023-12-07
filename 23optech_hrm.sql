@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th12 06, 2023 lúc 10:49 AM
+-- Thời gian đã tạo: Th12 07, 2023 lúc 11:14 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -956,11 +956,7 @@ CREATE TABLE `tbl_new` (
 --
 
 INSERT INTO `tbl_new` (`id`, `title`, `des`, `createdAt`, `updatedAt`, `active`, `image`) VALUES
-(28, 'tiêu đề 2', 'mô tả', 1701859096534, NULL, 1, 'image_3403718193045.jpg'),
-(29, 'tiêu đề 3', 'tiêu đề 2', 1701859147510, NULL, 1, 'image_3403718295019.jpg'),
-(30, 'tiêu đề 4', '11111', 1701859220360, NULL, 0, 'image_3403718440713.jpg'),
-(31, 'tiêu đề 5', '11111', 1701859244955, NULL, 1, 'image_3403718489913.jpg'),
-(32, 'tiêu đề 6', '1111', 1701859252599, 1701859665714, 1, 'image_3403719331427.jpg');
+(33, 'tiêu đề 111', '1', 1701931231348, 1701932146386, 0, 'image_3403864113236.jpg');
 
 -- --------------------------------------------------------
 
@@ -11701,7 +11697,7 @@ ALTER TABLE `tbl_hrm`
 -- AUTO_INCREMENT cho bảng `tbl_new`
 --
 ALTER TABLE `tbl_new`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT cho bảng `tbl_user`
